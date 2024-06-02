@@ -569,7 +569,7 @@ function makeTwentySix() {
 }
 document.querySelector(".b-26").addEventListener("click", makeTwentySix);
 
-//Задание 27
+//Задание 27 ДАЛЕЕ НЕ УСПЕЛА ВЫПОЛНИТЬ
 //Создайте функцию makeTwentySeven, которая использует async/await для асинхронной операции
 //и блок try/catch, чтобы обработать ошибку, которая может возникнуть при этой асинхронной операции.
 
