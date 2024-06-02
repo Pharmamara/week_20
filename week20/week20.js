@@ -563,12 +563,13 @@ function makeTwentySix() {
       throw new Error("Ошибка при асинхронном выполнении кода!");
     } catch (error) {
       console.error(error);
+      resultTwentySix.textContent = "Ошибка!";
     }
   }, 1000);
 }
 document.querySelector(".b-26").addEventListener("click", makeTwentySix);
 
-//Задание 27 ДАЛЕЕ ПОКА НЕ УСПЕЛА ВЫПОЛНИТЬ
+//Задание 27
 //Создайте функцию makeTwentySeven, которая использует async/await для асинхронной операции
 //и блок try/catch, чтобы обработать ошибку, которая может возникнуть при этой асинхронной операции.
 
