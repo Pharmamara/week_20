@@ -563,6 +563,7 @@ function makeTwentySix() {
       throw new Error("Ошибка при асинхронном выполнении кода!");
     } catch (error) {
       console.error(error);
+      resultTwentySix.textContent = "Ошибка!";
     }
   }, 1000);
 }
@@ -583,19 +584,18 @@ function simulateAsyncOperation() {
     }
   });
 }
+const makeTwentySeven = async () => {
+  resultTwentySeven.textContent = "Ожидание...";
+  try {
+    const result = await simulateAsyncOperation();
+    resultTwentySeven.textContent = "Результат: " + result;
+  } catch (error) {
+    resultTwentySeven.textContent = "Произошла ошибка: " + error.message;
+    console.error(error.name);
+  }
+};
 
-//Добавить название функции и ключевое слово async
-//Подумайте, в каком месте нужно добавить await
-// resultTwentySeven.textContent = 'Ожидание...';
-// try {
-// 	const result = simulateAsyncOperation();
-// 	resultTwentySeven.textContent = 'Результат: ' + result;
-// } catch (error) {
-// 	resultTwentySeven.textContent = 'Произошла ошибка: ' + error.message;
-// 	console.error(error.name);
-// }
-
-// document.querySelector('.b-27').addEventListener('click', makeTwentySeven);
+document.querySelector(".b-27").addEventListener("click", makeTwentySeven);
 
 //Задание 28
 //Создайте функцию makeTwentyEight, которая содержит код с использованием Promise.reject и setTimeout,
@@ -632,14 +632,16 @@ document.querySelector(".b-28").addEventListener("click", makeTwentyEight);
 
 const resultTwentyNine = document.getElementById("result29");
 
-function handlePromise() {
-  //Блок try
-  Promise.reject("это точно ошибка");
-  //Блок catch (e)
-  resultTwentyNine.textContent = "Ошибка перехвачена: " + e;
-  console.log(e); //err
+async function handlePromise() {
+  try {
+    await Promise.reject("это точно ошибка").then((result) => {
+      resultTwentyNine.textContent = "Успешное завершение: " + result;
+    });
+  } catch (e) {
+    resultTwentyNine.textContent = "Ошибка перехвачена: " + e;
+    console.log(e);
+  }
 }
-
 function makeTwentyNine() {
   handlePromise();
 }
@@ -647,7 +649,7 @@ function makeTwentyNine() {
 document.querySelector(".b-29").addEventListener("click", makeTwentyNine);
 
 //Задание 30
-//Выполнение функции упадёт в блок catch?
+//Выполнение функции упадёт в блок catch? НЕТ, НЕ ДОЙДЕТ
 //Ответ будет доступен при нажатии на кнопку "Узнать ответ"
 
 function makeThirty() {
@@ -656,7 +658,7 @@ function makeThirty() {
   return;
   try {
     while (true) {
-      // Бесконечный цикл
+      1 > 2;
     }
   } catch (error) {
     resultTwentyThirty.textContent = "Произошла ошибка: " + error.message;
