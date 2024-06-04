@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swapi</title>
+    <link rel="stylesheet" href="./normalize.css" />
+    <link href="./bootstrap.min.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0 auto;
+        background-color: grey;
+        color: white;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 10%;
+      }
+      h2 {
+        color: red;
+        text-align: center;
+      }
+      a {
+        text-decoration: none;
+        text-align: center;
+        display: block;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        padding-bottom: 5%;
+        width: 80%;
+      }
+
+      select {
+        margin-bottom: 10%;
+      }
+      input {
+        width: 80%;
+        border-style: solid;
+        margin-bottom: 10%;
+      }
+      button {
+        background-color: red;
+        color: white;
+        border: none;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>КОГО ИЛИ ЧТО БУДЕМ ИСКАТЬ?</h1>
+    <form>
+      <select name="resources" id="resources">
+        <option disabled selected>Выберите сущность</option>
+        <option value="people">people</option>
+        <option value="planets">planets</option>
+        <option value="films">films</option>
+        <option value="species">species</option>
+        <option value="vehicles">vehicles</option>
+        <option value="starships">starships</option>
+      </select>
+      <input
+        type="number"
+        id="id"
+        placeholder="введите числовой идентификатор сущности"
+      />
+      <button id="button" class="button-primary b-2" type="button">
+        Вперед!
+      </button>
+    </form>
+    <div id="dataContainer"></div>
+    <script>
+      function findResource() {
+        const selectResource = document.getElementById("resources");
+        let selectOption = selectResource.value;
+        let selectedOption =
+          selectResource.options[selectResource.selectedIndex].text;
+        const selectedOptionJson = JSON.stringify(selectedOption);
+        const inputId = document.getElementById("id").value;
+        const inputIdJson = JSON.stringify(inputId);
+        try {
+          fetch("https://swapi.py4e.com/api/" + selectedOption + "/" + inputId)
+            .then((response) => response.json())
+            .then((data) => {
+              const name = data.name;
+              const url = data.url;
+              if (name !== undefined) {
+                const resultName = document.createElement("h2");
+                dataContainer.appendChild(resultName);
+                resultName.innerHTML = `Name: ${name}`;
+              } else {
+                throw new Error("Имя не обнаружено");
+              }
+              if (url !== undefined) {
+                const resultUrl = document.createElement("a");
+                resultUrl.href = data.url;
+                dataContainer.appendChild(resultUrl);
+                resultUrl.innerHTML = `URL: ${url}`;
+              } else {
+                throw new Error("URL не обнаружен");
+              }
+            });
+        } catch (error) {
+          const resultError = document.createElement("h2");
+          dataContainer.appendChild(resultError);
+          resultError.innerHTML = "Ошибка: " + error.message;
+        }
+      }
+      document.querySelector(".b-2").addEventListener("click", findResource);
+    </script>
+  </body>
+</html>
