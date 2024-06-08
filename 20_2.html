@@ -35,18 +35,21 @@
       }
 
       select {
-        margin-bottom: 10%;
+        margin-bottom: 5%;
       }
       input {
         width: 80%;
         border-style: solid;
-        margin-bottom: 10%;
+        margin-bottom: 5%;
       }
       button {
         background-color: red;
         color: white;
         border: none;
         width: 50%;
+      }
+      p {
+        text-align: center;
       }
     </style>
   </head>
@@ -71,23 +74,26 @@
         Вперед!
       </button>
     </form>
-    <div id="dataContainer"></div>
+    <div id="dataContainer">
+      <p id="progress"></p>
+    </div>
     <script>
-      function findResource() {
+      async function findResource() {
         const selectResource = document.getElementById("resources");
         let selectOption = selectResource.value;
-        let selectedOption =
-          selectResource.options[selectResource.selectedIndex].text;
-        const selectedOptionJson = JSON.stringify(selectedOption);
         const inputId = document.getElementById("id").value;
-        const inputIdJson = JSON.stringify(inputId);
+        const progress = document.getElementById("progress");
+        progress.textContent = "Подождите...";
         try {
-          fetch("https://swapi.py4e.com/api/" + selectedOption + "/" + inputId)
+          await fetch(
+            "https://swapi.py4e.com/api/" + selectOption + "/" + inputId
+          )
             .then((response) => response.json())
             .then((data) => {
               const name = data.name;
               const url = data.url;
               if (name !== undefined) {
+                progress.textContent = "";
                 const resultName = document.createElement("h2");
                 dataContainer.appendChild(resultName);
                 resultName.innerHTML = `Name: ${name}`;
@@ -95,6 +101,7 @@
                 throw new Error("Имя не обнаружено");
               }
               if (url !== undefined) {
+                progress.textContent = "";
                 const resultUrl = document.createElement("a");
                 resultUrl.href = data.url;
                 dataContainer.appendChild(resultUrl);

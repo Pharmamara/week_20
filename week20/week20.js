@@ -551,7 +551,7 @@ function makeTwentyFive() {
 
 document.querySelector(".b-25").addEventListener("click", makeTwentyFive);
 
-//Задание 26
+//Задание 26 КАЖЕТСЯ, ВСЕ ПРАВИЛЬНО: БЛОК TRY...CATCH ВНУТРИ ФУНКЦИИ setTimeout()
 //Создайте функцию makeTwentySix, которая использует setTimeout с блоком try/catch,
 //чтобы обработать ошибку, которая может возникнуть при асинхронном выполнении кода.
 
